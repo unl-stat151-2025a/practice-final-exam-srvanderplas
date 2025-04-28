@@ -1,0 +1,367 @@
+---
+title: "Practice Final Exam 2025"
+author: "Your Name Here"
+---
+  
+-   The real exam is due at 3pm on May 15, 2025. 
+
+-   I will grade the exam as it is pushed to github. I cannot grade the exam that exists on your computer, so please double-check your github repository to ensure that the file that is on github is the file you want me to grade.
+
+-   For each of these problems, you may choose to solve the problem in either R or python. I have provided both R and python chunks. You should feel free to remove the unused chunk for each question. 
+
+-   (5 points) Multipart problems have only one code chunk. Please put your code under the comment corresponding to the part you are working on. This will help me to grade your work more efficiently. 
+
+## Rules
+
+- You may use the textbook and your notes on this exam.
+
+- If you need to search for 'how do I do X in Y language', that is allowable using google/duckduckgo, but you must 1) document that you did the search, and 2) provide a link to the website you used to get a solution. 
+
+- AI and LLM usage is strictly forbidden. Use of any unauthorized resources will result in a 0 on this exam.
+
+- You must be able to explain how any code you submit on this exam works. 
+  - Oral exams based on your submissions will be held on Friday, May 16. 
+  - You will be notified of the need for an oral exam by 8pm on Thursday, May 15.
+  - If you are notified that an oral exam is required, you must schedule a time for the exam on Thursday night. 
+  - Oral exam times will be available on Friday at 30-minute intervals between 9am and 2pm. 
+
+- If you get stuck, you may ask Dr. Vanderplas for the solution to the problem you are stuck on, at the cost of the points which would be awarded for that problem.  This is designed to get you un-stuck and allow you to complete multi-part problems.
+
+- (5 points) Your submitted qmd file must compile without errors. Use `error=TRUE` in a chunk if it is supposed to return an error or if you cannot get the code to work properly.
+
+## Data
+
+The data for this practice exam comes from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/main/data/2022/2022-10-11). 
+
+Ravelry describes itself as a social networking and organizational tool for knitters, crocheters, designers, spinners, weavers and dyers.
+
+
+
+## Setting Up
+### Packages
+
+Load any additional packages you need for the rest of the exam in the setup chunks. 
+I have started by loading some basic packages in R and Python. 
+Python packages use the aliases that are consistently used in class and in the textbook.  
+
+```{r setup-r}
+#| cache: false
+#| message: false
+#| warning: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+```
+
+```{python setup-py}
+#| cache: false
+#| message: false
+#| warning: false
+import pandas as pd
+import seaborn as sns
+import seaborn.objects as so
+import matplotlib.pyplot as plt
+```
+
+### Load Data
+
+```{r}
+yarn <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2022/2022-10-11/yarn.csv')
+```
+
+```{python}
+yarn = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2022/2022-10-11/yarn.csv')
+```
+
+### Data Codebook
+
+|variable                  |class     |description |
+|:-------------------------|:---------|:-----------|
+|discontinued              |logical   | discontinued true/false    |
+|gauge_divisor             |double    | gauge divisor - The number of inches that equal min_gauge to max_gauge stitches    |
+|grams                     |double    | Unit weight in grams    |
+|id                        |double    | id     |
+|machine_washable          |logical   | machine washable true/false    |
+|max_gauge                 |double    | max gauge - The max number of stitches that equal gauge_divisor    |
+|min_gauge                 |double    | min gauge - The min number of stitches that equal gauge_divisor   |
+|name                      |character | name    |
+|permalink                 |character | permalink    |
+|rating_average            |double    | rating average - The average rating out of 5    |
+|rating_count              |double    | rating count    |
+|rating_total              |double    | rating total    |
+|texture                   |character | texture  - Texture free text  |
+|thread_size               |character | thread size    |
+|wpi                       |double    | wraps per inch    |
+|yardage                   |double    | yardage     |
+|yarn_company_name         |character | Yarn company name    |
+|yarn_weight_crochet_gauge |logical   | Yarn weight crochet gauge - Crochet gauge for the yarn weight category   |
+|yarn_weight_id            |double    | Yarn weight ID - Identifier for the yarn weight category     |
+|yarn_weight_knit_gauge    |character | Yarn weight knit gauge -     Knit guage for the yarn weight category    |
+|yarn_weight_name          |character | Yarn weight  name -     Name for the yarn weight category    |
+|yarn_weight_ply           |double    | Yarn weight ply -     Ply for the yarn weight category    |
+|yarn_weight_wpi           |character | Yarn weight wraps per inch -     Wraps per inch for the yarn weight category    |
+|texture_clean             |character | Texture clean -     Texture with some light text cleaning    |
+
+## Initial Exploration
+
+1. (5 points) Determine the number of rows and columns in the data, using appropriate commands.
+
+<!-- Code for this problem goes in the chunk below.  -->
+
+```{r prob-1-r}
+
+```
+
+```{python prob-1-python}
+
+```
+
+2. How many of the recorded yarns are machine washable?
+
+    1. (2 points) Use a simple calculation to answer this question. (Simple = you should not need any loops, custom functions, or if statements)     
+    Hint: You may want to exclude NA values before you do your calculation. 
+    
+    <!-- Code for this goes in the chunk below -->
+
+    2. (3 points) Explain how your code works, including any changes in variable types that occur during the computation. 
+    
+    > Your explanation goes here 
+    
+<!-- (keep the > at the front of the line, with a space after it - this is a blockquote in markdown, and sets your answers apart so that I can see them clearly) -->
+
+
+```{r}
+
+```
+
+```{python}
+
+```
+
+3. How many missing values are recorded for each variable?
+
+    1. (5 points) Write a loop that will iterate through each column of the data set and calculate the number of missing values in that column. Store the answer in a new vector variable. 
+    
+    <!-- Code for this goes in the chunk below -->
+
+    2. (5 points) List the column that has the: (Fill this in)   
+
+        - Most NA values
+        - Fewest NA values
+        - Median NA values
+
+    <!-- Code for this goes in the chunk below -->
+
+```{r prob-3-r}
+#  Write a loop that will iterate through each column of the data set and calculate the number of missing values in that column. Store the answer in a new vector variable. 
+
+
+# Which column has the most, fewest, and median NA values?
+
+
+
+```
+
+```{python prob-3-python}
+#  Write a loop that will iterate through each column of the data set and calculate the number of missing values in that column. Store the answer in a new vector variable.  
+
+
+# Which column has the most, fewest, and median NA values?
+
+
+```
+
+## Data Transformations and Summaries
+
+4. Consider the column `yarn_company_name`.  
+  
+    1. (3 points) Count up the number of times that each company appears in the data set.  
+    
+    <!-- Code for this should be in the chunk below -->
+    
+    2. (2 points) Store the data from only the 10 most common brands in the variable `common_yarn`.
+    
+    3. (5 points) Is this data in tidy form? Explain why or why not.
+    
+    4. (5 points) Sketch the process to create a data set from `common_yarn` that has three columns: `yarn_company_name`, `yarn_weight_name`, and `n`, the number of entries from each company with that yarn weight. 
+    
+    5. (5 points) Execute the transformation you planned out in 4.4.
+
+    6. (5 points) Create a plot of the brand and yarn weight using a tile geometric object, mapping `n` to the fill color of the tile. If you cannot figure out the tile plot, you can use a scatterplot to make a similar (though less easily readable) plot, mapping point size to `n` instead. 
+    
+    <!-- Code for this goes in the chunk below -->
+    
+
+```{r prob-4-r}
+# Count up the number of times that each company appears in the data set. 
+
+
+# Store the data from only the 10 most common brands in the variable `common_yarn`.
+
+
+# Execute the transformation you planned out in 4.4 to create a data set from `common_yarn` that has three columns: `yarn_company_name`, `yarn_weight_name`, and `n`, the number of entries from each company with that yarn weight. 
+
+# Create a plot of the brand and yarn weight using a tile geometric object, mapping `n` to the fill color of the tile. If you cannot figure out the tile plot, you can use a scatterplot to make a similar (though less easily readable) plot, mapping point size to `n` instead. 
+
+
+```
+
+```{python prob-4-python}
+# Count up the number of times that each company appears in the data set. 
+
+
+# Store the data from only the 10 most common brands in the variable `common_yarn`.
+
+
+# Execute the transformation you planned out in 4.4 to create a data set from `common_yarn` that has three columns: `yarn_company_name`, `yarn_weight_name`, and `n`, the number of entries from each company with that yarn weight. 
+
+# Create a plot of the brand and yarn weight using a tile geometric object, mapping `n` to the fill color of the tile. If you cannot figure out the tile plot, you can use a scatterplot to make a similar (though less easily readable) plot, mapping point size to `n` instead. 
+
+
+```
+
+
+## Data Cleaning
+
+5. Consider the columns `texture` and `texture_clean`. 
+
+    1. (2 points) For how many rows of `yarn` do `texture` and `texture_clean` differ?
+    
+    > Your answer goes here, supported by code below
+    
+    2. (3 points) Examine the rows where `texture` and `texture_clean` differ. What function(s) do you think were used to transform `texture` to `texture_clean`?
+    
+    > Your answer goes here (supporting code should be in the chunk below)
+    
+    3. (5 points) Describe/sketch the process you would use to identify the top 15 common descriptor words/phrases. 
+    
+    > Your answer goes here. 
+
+    4. (5 points) Create a variable, `top_descriptors`, that contains the top 15 common descriptor words/phrases.
+    
+    <!-- Corresponding code should be in the chunk below. -->
+    
+    5. (5 points) Describe/sketch the process you would use to determine whether a yarn texture description contains one of the keywords in your `top_descriptors` list. 
+    
+    > Your answer goes here
+    
+    6. (5 points) Write a function corresponding to the operations described in 5.5, `is_top_descriptor`. Your function should take a texture description and return `True` if one of the `top_descriptors` is present, and `False` if none of the `top_descriptors` are present. 
+    
+    <!-- Corresponding code should be in the chunk below. -->
+    
+    7. (5 points) Create a new column in `yarn`, `common_texture`, which is `True` if `texture_clean` contains one of the popular keywords and `False` otherwise. 
+    
+    <!-- Corresponding code should be in the chunk below. -->
+
+```{r prob-5-r}
+# For how many rows of `yarn` do `texture` and `texture_clean` differ?
+
+
+# Examine the rows where `texture` and `texture_clean` differ. What function(s) do you think were used to transform `texture` to `texture_clean`?
+
+
+# Create a variable, `top_descriptors`, that contains the top 15 common descriptor words/phrases.
+
+
+# Write a function corresponding to the operations described in 5.5, `is_top_descriptor`. Your function should take a texture description and return `True` if one of the `top_descriptors` is present, and `False` if none of the `top_descriptors` are present. 
+
+
+# Create a new column in `yarn`, `common_texture`, which is `True` if `texture_clean` contains one of the popular keywords and `False` otherwise. 
+
+
+```
+
+```{python prob-5-python}
+# For how many rows of `yarn` do `texture` and `texture_clean` differ?
+
+
+# Examine the rows where `texture` and `texture_clean` differ. What function(s) do you think were used to transform `texture` to `texture_clean`?
+
+
+# Create a variable, `top_descriptors`, that contains the top 15 common descriptor words/phrases.
+
+
+# Write a function corresponding to the operations described in 5.5, `is_top_descriptor`. Your function should take a texture description and return `True` if one of the `top_descriptors` is present, and `False` if none of the `top_descriptors` are present. 
+
+
+# Create a new column in `yarn`, `common_texture`, which is `True` if `texture_clean` contains one of the popular keywords and `False` otherwise. 
+
+
+```
+
+
+## Data Transformation
+
+6. Consider the variable `yarn_weight_wpi`.
+
+    1. (5 points) Print out the unique values for `yarn_weight_wpi` in the `yarn` dataset. 
+    
+    <!-- Code for this goes in the chunk below -->
+
+    2. (5 points) Describe a process for converting this variable to a representative integer. What assumptions or simplifying decisions would you make? 
+    
+    > My answer is on page ___ of my scratch paper
+    
+    <!-- OR -->
+    
+    > The steps to convert the variable to an integer are...
+    > 1. 
+    > 2. 
+    > 3. 
+    
+    3. (5 points) Write a function, `convert_weight_int(x)` that takes a character string describing the weight and converts it to a representative integer.
+    
+    <!-- Code for this goes in the chunk below -->
+
+    
+    4. (5 points) Use your function to create a new column in yarn, `yarn_weight_wpi_num`. 
+    
+    <!-- Code for this goes in the chunk below -->
+    
+    5. (2 points) What is the mean yarn weight for Bernat yarns?    
+    If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+    
+    
+    <!-- Code for this goes in the chunk below -->
+        
+    6. (5 points) Remove any rows with an NA for `yarn_weight_wpi_num`.     
+    If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+    
+    <!-- Code for this goes in the chunk below -->
+    
+  
+```{r prob-6-r}
+# Print out the unique values for `yarn_weight_wpi` in the `yarn` dataset. 
+
+
+# Write a function, `convert_weight_int(x)` that takes a character string describing the weight and converts it to a representative integer.
+
+
+# Use your function to create a new column in yarn, `yarn_weight_wpi_num`. 
+
+# What is the mean yarn weight for Bernat yarns?
+# If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+
+# Remove any rows with an NA for `yarn_weight_wpi_num`.     
+# If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+
+```
+
+```{python prob-6-python}
+# Print out the unique values for `yarn_weight_wpi` in the `yarn` dataset. 
+
+
+# Write a function, `convert_weight_int(x)` that takes a character string describing the weight and converts it to a representative integer.
+
+
+# Use your function to create a new column in yarn, `yarn_weight_wpi_num`. 
+
+# What is the mean yarn weight for Bernat yarns?
+# If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+
+# Remove any rows with an NA for `yarn_weight_wpi_num`.     
+# If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
+
+```
+
