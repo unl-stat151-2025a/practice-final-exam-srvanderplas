@@ -493,19 +493,36 @@ head(yarn_no_na, 10)
 
 ```{python prob-6-python}
 # Print out the unique values for `yarn_weight_wpi` in the `yarn` dataset. 
-
+yarn.yarn_weight_wpi.unique()
 
 # Write a function, `convert_weight_int(x)` that takes a character string describing the weight and converts it to a representative integer.
 
+# https://stackoverflow.com/questions/7368789/convert-all-strings-in-a-list-to-integers
+# https://pandas.pydata.org/docs/user_guide/integer_na.html
+
+def convert_weight_int(x):
+  x = pd.Series(x)
+  x = x.replace(to_replace=['0-4', '5-6'], value = ['4', '6'])
+  x = pd.to_numeric(x, errors = 'coerce').astype("Int64")
+  return x
+
+# convert_weight_int(["0-4", "5-6", "8", pd.NA])
 
 # Use your function to create a new column in yarn, `yarn_weight_wpi_num`. 
+
+yarn["yarn_weight_wpi_num"] = convert_weight_int(yarn.yarn_weight_wpi)
 
 # What is the mean yarn weight for Bernat yarns?
 # If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
 
+np.mean(yarn.query('yarn_company_name=="Bernat"').yarn_weight_wpi_num)
+
 # Remove any rows with an NA for `yarn_weight_wpi_num`.     
 # If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
 
+# https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html
+yarn_weight_def = yarn.dropna(axis = 0, subset = 'yarn_weight_wpi_num')
+yarn_weight_def
 ```
 
 :::
