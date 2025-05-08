@@ -6,6 +6,7 @@ self-contained: true
 format:
   html:
     self-contained-math: true
+    code-overflow: wrap
 ---
   
 -   The real exam is due at 3pm on May 15, 2025. 
@@ -80,9 +81,8 @@ yarn <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/
 ```{python}
 yarn = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2022/2022-10-11/yarn.csv')
 ```
-
-### Data Codebook
-
+::: {.callout-note collapse=true}
+### Data Codebook 
 |variable                  |class     |description |
 |:-------------------------|:---------|:-----------|
 |discontinued              |logical   | discontinued true/false    |
@@ -109,6 +109,8 @@ yarn = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesda
 |yarn_weight_ply           |double    | Yarn weight ply -     Ply for the yarn weight category    |
 |yarn_weight_wpi           |character | Yarn weight wraps per inch -     Wraps per inch for the yarn weight category    |
 |texture_clean             |character | Texture clean -     Texture with some light text cleaning    |
+
+:::
 
 ::: {.content}
 ::: {.cover}
@@ -227,8 +229,7 @@ yarn.columns[n_missing_by_col == np.median(n_missing_by_col)]
     > The `yarn` data is in tidy form: there is a column for each variable, a row for each observation (type of yarn), and a cell that contains only one value. The `common_yarn` data is similar - it has only one ID variable (yarn_company_name) and one calculated variable, `n`, but this is still tidy. 
     
     4. (5 points) Sketch the process to create a data set from `common_yarn` that has three columns: `yarn_company_name`, `yarn_weight_name`, and `n`, the number of entries from each company with that yarn weight. 
-    
-![Sketch of the process to create the specified data](yarn-transform-prob-4.png)
+      ![Sketch of the process to create the specified data](yarn-transform-prob-4.png)
     
     5. (5 points) Execute the transformation you planned out in 4.4.
 
@@ -341,7 +342,8 @@ sum(yarn$texture != yarn$texture_clean, na.rm = T)
 
 filter(yarn, texture != texture_clean) |>
   select(texture, texture_clean) |>
-  head(10)
+  head(10) |>
+  knitr::kable() # create a nice html table
 
 # Create a variable, `top_descriptors`, that contains the top 15 common descriptor words/phrases.
 
@@ -480,7 +482,7 @@ yarn |>
 yarn_no_na <- yarn |>
   filter(!is.na(yarn_weight_wpi_num))
 
-head(yarn_no_na, 10)
+head(yarn_no_na[,c("name", "yarn_weight_wpi", "yarn_weight_wpi_num")], 10)
 
 ```
 
