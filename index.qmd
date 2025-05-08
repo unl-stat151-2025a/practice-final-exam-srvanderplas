@@ -2,6 +2,10 @@
 title: "Practice Final Exam 2025"
 author: "Answers from Review Session"
 css: online-post.css
+self-contained: true
+format:
+  html:
+    self-contained-math: true
 ---
   
 -   The real exam is due at 3pm on May 15, 2025. 
@@ -114,7 +118,6 @@ yarn = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesda
 
 1. (5 points) Determine the number of rows and columns in the data, using appropriate commands.
 
-<!-- Code for this problem goes in the chunk below.  -->
 
 ```{r prob-1-r}
 dim(yarn)
@@ -230,8 +233,6 @@ yarn.columns[n_missing_by_col == np.median(n_missing_by_col)]
     5. (5 points) Execute the transformation you planned out in 4.4.
 
     6. (5 points) Create a plot of the brand and yarn weight using a tile geometric object, mapping `n` to the fill color of the tile. If you cannot figure out the tile plot, you can use a scatterplot to make a similar (though less easily readable) plot, mapping point size to `n` instead. 
-    
-    <!-- Code for this goes in the chunk below -->
     
 
 ```{r prob-4-r}
@@ -380,21 +381,21 @@ yarn <- yarn |>
 ```
 
 ```{python prob-5-python}
-# For how many rows of `yarn` do `texture` and `texture_clean` differ?
+# For how many rows of yarn do texture and texture_clean differ
+# In python we have to drop NAs from each column before comparing them
 
-# In python we have to drop NAs from each column before comparing them.
 sum(yarn.texture.dropna() != yarn.texture_clean.dropna())
 
 # Examine the rows where `texture` and `texture_clean` differ. What function(s) do you think were used to transform `texture` to `texture_clean`?
 
 yarntmp = yarn.loc[:,['texture', 'texture_clean']].dropna()
-yarntmp.query('not texture==texture_clean')
+yarntmp_interesting = yarntmp.query('not texture==texture_clean')
+yarntmp_interesting.head(3)
 
 # Looks like the biggest change is lower case
 
 # Create a variable, `top_descriptors`, that contains the top 15 common descriptor words/phrases.
 
-split_on = re.split(r'[\W_]+', yarntmp.texture_clean)
 all_descriptors = yarntmp.texture_clean.str.split('[,;]', regex = True).explode() # explode is the equivalent of unlist
 all_descriptors = pd.Series(all_descriptors).str.strip()
 
@@ -425,7 +426,6 @@ yarn['common_texture'] = is_top_descriptor(yarn.texture_clean)
 
     1. (5 points) Print out the unique values for `yarn_weight_wpi` in the `yarn` dataset. 
     
-    <!-- Code for this goes in the chunk below -->
 
     2. (5 points) Describe a process for converting this variable to a representative integer. What assumptions or simplifying decisions would you make? 
     
@@ -435,24 +435,17 @@ yarn['common_texture'] = is_top_descriptor(yarn.texture_clean)
     > 2. Convert string values to integers (NA will stay NA) 
     
     3. (5 points) Write a function, `convert_weight_int(x)` that takes a character string describing the weight and converts it to a representative integer.
-    
-    <!-- Code for this goes in the chunk below -->
-
+  
     
     4. (5 points) Use your function to create a new column in yarn, `yarn_weight_wpi_num`. 
-    
-    <!-- Code for this goes in the chunk below -->
     
     5. (2 points) What is the mean yarn weight for Bernat yarns?    
     If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
     
     
-    <!-- Code for this goes in the chunk below -->
         
     6. (5 points) Remove any rows with an NA for `yarn_weight_wpi_num`.     
     If you had trouble with 6.4, you can use `prob6pt4.csv` to complete this problem. 
-    
-    <!-- Code for this goes in the chunk below -->
     
   
 ```{r prob-6-r}
